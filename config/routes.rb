@@ -1,36 +1,37 @@
 Rails.application.routes.draw do
-  # config = Rails.application.config.baukis2
+  config = Rails.application.config.baukis2
 
-  # constraints host: config[:staff][:host] do
-    namespace :staff do
-      root "top#index"
+  constraints host: config[:staff][:host] do
+    namespace :staff, path: config[:staff][:path] do
+      root to: "top#index"
+
       get "login" => "sessions#new", as: :login
-      post "session" => "sessions#create", as: :session
-      delete "session" => "sessions#destroy"
-      # resource :session, only: [ :create, :destroy ]
-      # resource :account, except: [ :new, :create, :destroy ]
+      # post "session" => "sessions#create", as: :session
+      # delete "session" => "sessions#destroy"
+      resource :session, only: [ :create, :destroy ]
+      resource :account, except: [ :new, :create, :destroy ]
       # resource :password, only: [ :show, :edit, :update ]
-      # resources :customers
+  
     end
-  # end
+  end
 
-  # constraints host: config[:admin][:host] do
-    namespace :admin do
-      root "top#index"
+  constraints host: config[:admin][:host] do
+    namespace :admin, path:  config[:admin][:path]do
+      root to: "top#index"
       get "login" => "sessions#new", as: :login
       post "session" => "sessions#create", as: :session
-      delete "session" => "sessions#destroy"
-      # resource :session, only: [ :create, :destroy ]
-      # resources :staff_members do
+      delete "session" => "sessions#sestroy"
+      resource :session, only: [ :create, :destroy ]
+      resources :staff_members 
       #   resources :staff_events, only: [ :index ]
       # end
       # resources :staff_events, only: [ :index ]
     end
-  # end
+  end
 
   # constraints host: config[:customer][:host] do
-    namespace :customer do
-      root "top#index"
+    namespace :customer, path: config[:customer][:path] do
+      root to: "top#index"
     end
   # end
 end
