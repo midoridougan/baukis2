@@ -1,5 +1,5 @@
 class Admin::Base < ApplicationController
-  before_action :authrize
+  before_action :authorize
   before_action :check_account
   before_action :check_timeout
 
@@ -12,7 +12,7 @@ class Admin::Base < ApplicationController
 
   helper_method :current_administrator
 
-  private def authrize
+  private def authorize
     unless current_administrator
       flash.alert = "管理者としてログインしてください。"
       redirect_to :admin_login
@@ -32,10 +32,10 @@ class Admin::Base < ApplicationController
   private def check_timeout
     if current_administrator
       if session[:admin_last_access_time] >= TIMEOUT.ago
-        session[:admin_last_access_time] = Time.current_staff_member
+        session[:admin_last_access_time] = Time.current
       else
-        session.delete(:admistrator_id)
-        flash.alert = "セッションタイムがタイムアウトしました。"
+        session.delete(:administrator_id)
+        flash.alert = "セッションがタイムアウトしました。"
         redirect_to :admin_login
       end
     end
