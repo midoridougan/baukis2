@@ -4,13 +4,10 @@ Rails.application.routes.draw do
   constraints host: config[:staff][:host] do
     namespace :staff, path: config[:staff][:path] do
       root to: "top#index"
-
       get "login" => "sessions#new", as: :login
-      # post "session" => "sessions#create", as: :session
-      # delete "session" => "sessions#destroy"
       resource :session, only: [ :create, :destroy ]
       resource :account, except: [ :new, :create, :destroy ]
-      # resource :password, only: [ :show, :edit, :update ]
+      resource :password, only: [ :show, :edit, :update ]
   
     end
   end
