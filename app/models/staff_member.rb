@@ -1,6 +1,8 @@
 class StaffMember < ApplicationRecord
   include StringNormalizer
-
+  # include EmailHolder	include StringNormalizer
+  # include PersonalNameHolder	
+  # include PasswordHolder
   has_many :events, class_name: "StaffEvent", dependent: :destroy
 
   before_validation do
@@ -27,7 +29,7 @@ class StaffMember < ApplicationRecord
   }
   validates :end_date, date: {
     after: :start_date,
-    before: ->(obj){ 1.year.from_now.to_date },
+    before: -> (obj) { 1.year.from_now.to_date },
     allow_blank: true
   }
 
@@ -40,7 +42,7 @@ class StaffMember < ApplicationRecord
   end
 
   def active?
-    !suspended? && start_date <= Date.today &&
+    !suspended && start_date <= Date.today &&
       (end_date.nil? || end_date > Date.today)
   end
 end
