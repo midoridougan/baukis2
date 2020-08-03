@@ -13,11 +13,11 @@ Rails.application.routes.draw do
   end
 
   constraints host: config[:admin][:host] do
-    namespace :admin, path:  config[:admin][:path]do
+    namespace :admin, path: config[:admin][:path] do
       root to: "top#index"
       get "login" => "sessions#new", as: :login
-      post "session" => "sessions#create", as: :session
-      delete "session" => "sessions#sestroy"
+      # post "session" => "sessions#create", as: :session
+      # delete "session" => "sessions#sestroy"
       resource :session, only: [ :create, :destroy ]
       resources :staff_members do
         resources :staff_events, only: [ :index ]
@@ -26,9 +26,9 @@ Rails.application.routes.draw do
     end
   end
 
-  # constraints host: config[:customer][:host] do
+  constraints host: config[:customer][:host] do
     namespace :customer, path: config[:customer][:path] do
       root to: "top#index"
     end
-  # end
+  end
 end

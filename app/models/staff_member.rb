@@ -11,7 +11,7 @@ class StaffMember < ApplicationRecord
     self.given_name_kana = normalize_as_furigana(given_name_kana)
   end
 
-  HUMAN_NAME_REGEXP = /\A[\p{han}\p{hiragana}\p{katanaka}\u{30fcA-Za-z}]+\z/
+  HUMAN_NAME_REGEXP = /\A[\p{han}\p{hiragana}\p{katanaka}\u{30fc}A-Za-z]+\z/
   KATAKANA_REGEXP = /\A[\p{katakana}\u{30fc}]+\z/
 
   validates :email, presence: true, "valid_email_2/email": true,

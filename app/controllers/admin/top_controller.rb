@@ -1,5 +1,5 @@
-class Admin::TopController < ApplicationController
-  before_action :authorize
+class Admin::TopController < Admin::Base
+  skip_before_action :authorize
   
   def index
     if current_administrator
