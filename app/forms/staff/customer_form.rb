@@ -7,10 +7,11 @@ class Staff::CustomerForm
   def initialize(customer = nil)
     @customer = customer
     @customer ||= Customer.new(gender: "male")
+    self.inputs_home_address = @customer.home_address.present?
     (2 - @customer.personal_phones.size).times do
       @customer.personal_phones.build
     end
-    self.inputs_home_address = @customer.home_address.present?
+    
     self.inputs_work_address = @customer.work_address.present?
     @customer.build_home_address unless @customer.home_address
     @customer.build_work_address unless @customer.work_address
@@ -81,7 +82,7 @@ class Staff::CustomerForm
   end
 
   def home_address_params
-    @params.require(:home_address).expect(:phone).permit(
+    @params.require(:home_address).except(:phone).permit(
       :postal_code, :prefecture, :city, :address1, :address2
     )
   end
