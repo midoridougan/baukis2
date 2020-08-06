@@ -11,7 +11,7 @@ class Staff::CustomerForm
     (2 - @customer.personal_phones.size).times do
       @customer.personal_phones.build
     end
-    
+
     self.inputs_work_address = @customer.work_address.present?
     @customer.build_home_address unless @customer.home_address
     @customer.build_work_address unless @customer.work_address
@@ -74,22 +74,22 @@ class Staff::CustomerForm
   end
   
   private def customer_params
-    @params.require(:customer).expect(:phone).permit(
+    @params.require(:customer).except(:phones).permit(
       :email, :password,
       :family_name, :given_name, :family_name_kana, :given_name_kana,
       :birthday, :gender
     )
   end
 
-  def home_address_params
-    @params.require(:home_address).except(:phone).permit(
+  private def home_address_params
+    @params.require(:home_address).except(:phones).permit(
       :postal_code, :prefecture, :city, :address1, :address2
     )
   end
 
   private def work_address_params
-    @params.require(:work_address).except.(:phone).premit(
-      :postal_code, :prefecture, :city, :adderss1, :address2,
+    @params.require(:work_address).except(:phones).permit(
+      :postal_code, :prefecture, :city, :address1, :address2,
       :company_name, :division_name
     )
   end
