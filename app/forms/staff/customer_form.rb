@@ -98,5 +98,4 @@ class Staff::CustomerForm
     @params.require(record_name)
       .slice(:phones).permit(phones: [ :number, :primary ])
   end
-
 end
