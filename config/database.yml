@@ -20,6 +20,11 @@ default: &default
   # For details on connection pooling, see Rails configuration guide
   # https://guides.rubyonrails.org/configuring.html#database-pooling
   pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
+  # host: db
+  username: postgres
+  password: ""
+  host: <%= ENV.fetch('DATABASE_HOST') { 'localhost' } %>
+  port: <%= ENV.fetch('DATABASE_PORT') { 5432 } %>
 
 development:
   <<: *default
@@ -81,5 +86,5 @@ test:
 production:
   <<: *default
   database: baukis2_production
-  username: baukis2
+  username: postgres
   password: <%= ENV['BAUKIS2_DATABASE_PASSWORD'] %>
