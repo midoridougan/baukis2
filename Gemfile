@@ -38,3 +38,7 @@ group :test do
   gem "rspec-rails"
   gem "factory_bot_rails"
 end
+
+group :production do
+  gem 'unicorn', '5.4.1'
+end
