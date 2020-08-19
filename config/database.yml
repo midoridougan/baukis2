@@ -84,7 +84,11 @@ test:
 #     url: <%= ENV['DATABASE_URL'] %>
 #
 production:
+
   <<: *default
+  adapter: postgresql
+  encoding: unicode
+  pool: 5
   database: baukis2_production
   username: postgres
   password: <%= ENV['BAUKIS2_DATABASE_PASSWORD'] %>

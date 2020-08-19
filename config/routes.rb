@@ -1,4 +1,6 @@
 Rails.application.routes.draw do
+  resources :blogs
+  root "blogs#index"
   config = Rails.application.config.baukis2
 
   constraints host: config[:staff][:host] do
